@@ -1,0 +1,128 @@
+
+<!-- saved from url=(0055)http://slazebni.cs.illinois.edu/fall15/assignment4.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>CS440 Fall 2015 Assignment 4</title>
+</head>
+<body bgcolor="white" data-feedly-mini="yes">
+<table width="800">
+<tbody><tr>
+<td>
+<h2>CS440 Fall 2015</h2> 
+<h2>Assignment 4: Markov Decision Processes, Reinforcement Learning, and Classification</h2>
+
+This is the last assignment in the course, covering topics from MDPs, to Reinforcement Learning, to classification with perceptrons and nearest neighbor. As usual, you can work in teams of up to three people (three-unit students with three-unit students, four-unit students with four-unit students).
+
+<h3>Contents</h3>
+
+<ul>
+<li>Part 1.1 (for everybody): <a href="http://slazebni.cs.illinois.edu/fall15/assignment4.html#grid">Grid world MDP</a>
+</li><li>Part 1.2 (for everybody): <a href="http://slazebni.cs.illinois.edu/fall15/assignment4.html#grid_rl">Grid World RL</a>
+</li><li><a href="http://slazebni.cs.illinois.edu/fall15/assignment4.html#checklist">Report checklist</a>
+</li></ul>
+
+
+<h3>Part 1: MDPs and Reinforcement Learning</h3>
+
+<small>Credit: Yiming Jiang, Codruta Girlea</small><br><br>
+
+<a name="grid">
+<h3>Part 1.1 (for everybody): Grid World MDP</h3>
+
+Consider the following environment, similar to the one in Section 17.1 of the textbook and in </a><a href="http://slazebni.cs.illinois.edu/fall15/lec16_mdp.pdf">the class lecture</a>:<br><br>
+<img src="./documentation_files/part1_1_maze.jpg"><br><br>
+As in the textbook, the <b>transition model</b> is as follows: the intended outcome occurs
+with probability 0.8, and with probability 0.1 the agent moves at either right angle to the
+intended direction (see the figure above). If the move would make the agent walk into a wall, the agent stays in 
+the same place as before.
+
+<br><br>The rewards for the white squares are -0.04. <br><br>
+
+Assuming the known transition model and reward function listed above, find the optimal policy
+and the utilities of all the (non-wall) states using <b>value iteration</b> or <b>policy iteration</b> for two scenarios:<br><br>
+<ol type="a">
+    <li>Reward squares are treated as <b>terminal</b> states:
+        once the agent reaches reward squares, either positive or negative, the agent stops moving. </li>
+    <br>
+    <li>Reward squares are treated as <b>non-terminal</b> states:
+        upon reaching reward squares, the agent continues to move. The agent's state sequence is infinite. </li>
+    
+</ol>
+<br><br>
+
+
+For each scenario, display the optimal policy and the utilities of all the states, and plot utility estimates as a function 
+of the number of iterations as in Figure 17.5(a) (for value iteration, you should need no more than 
+50 iterations to get convergence). In this question and the next one, use a discount factor of 0.99.<br><br>
+
+Here are some <a href="http://slazebni.cs.illinois.edu/fall15/assignment4/part_1_1_reference_utilities.txt">reference utility values</a> (computed with a different discount factor) to help you get an idea if the trend of your answers is correct. 
+<br><br>
+
+
+<a name="grid_rl">
+<h3>Part 1.2 (for everybody): Grid World Reinforcement Learning</h3>
+
+Now consider the <b>reinforcement learning</b> scenario in which the transition model and
+the reward function are unknown to the agent, but the agent can observe the outcome of its 
+actions and the reward received in any state. (In the implementation, this means that the
+successor states and rewards will be given to the agent by some black-box functions whose
+parameters the agent doesn't have access to.) <br><br>
+
+Use <b>TD Q-learning</b>, as in Section 21.3 and
+</a><a href="http://slazebni.cs.illinois.edu/fall15/lec17_rl.pdf">this lecture</a>,
+to learn an action-utility function <b>only for the terminal scenario</b> described above. 
+Experiment with different parameters for the exploration function
+f as defined in Section 21.3 and in the slides, and report which choice works the best. For the learning rate
+function, start with <tt>alpha(t) = 60/(59+t)</tt>, and
+play around with the numbers to get the best behavior.<br><br>
+
+In the report, plot utility estimates and their <b>RMS error</b> as a function of
+the number of trials (you will probably need several thousand), as in Figure 21.7. RMS stands 
+for <b>root mean squared</b> error: <br> <img src="./documentation_files/part1_2_rmse.jpg"><br>
+where U'(s) is the estimated utility of state s, U(s) is the "true" utility as determined by 
+value iteration, and N is the number of states.<br><br>
+
+
+<h3>Parts 1.1 and 1.2 extra credit</h3>
+
+<ul>
+<li><b>Design a more complicated maze environment of your own</b> and run algorithms from
+1 and 2 on it. How does the number of states and the complexity of the environment affect 
+convergence? How complex can you make the environment and still be able to learn the right
+policy? It might also be interesting to revisit some of the mazes from Assignment 1.<br><br>
+</li><li><b>Experiment with any advanced methods</b> from Chapters 17 and 21 of the
+textbook. For example, instead of Q-learning, try to use an explicit state-based representation
+and learn the transition function of the environment. 
+</li></ul>
+
+
+
+</a><a name="checklist">
+<h3>Report Checklist</h3>
+
+<h4>Part 1:</h4>
+<ol class="ol1">
+<li class="li1"> (for everybody):
+Briefly discuss your implementation of value or policy iteration. 
+For terminal and non-terminal reward square scenarios, display the optimal policy and the utilities of all the states, and plot utility estimates as a function of the number of iterations. 
+</li><li> (for everybody): Briefly discuss your implementation of TD Q-learning and parameter settings. Give your utility estimates and plot RMS error as a function of the number of trials. 
+</li><li> (for four-unit students): Briefly discuss your implementation and parameter settings. Show your final policy in the form of four maps corresponding to all the possible ingredient/pizza combinations. 
+</li></ol>
+
+<h4>Extra credit:</h4>
+
+<ul><li>
+We reserve the right to give <b>bonus points</b> for any advanced
+exploration or especially challenging or creative solutions that you implement.
+Three-unit students always get extra credit for submitting solutions to four-unit problems.
+<b><font color="red">If you submit any work for bonus points, be sure it is clearly indicated in your report.</font></b></li></ul>
+
+
+
+</p></td></tr></tbody></table>
+
+
+
+
+
+
+</body></html>
